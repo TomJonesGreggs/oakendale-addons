@@ -1,0 +1,80 @@
+# Oakendale variant of upstream homeassistant-ai/ha-mcp homeassistant-addon-dev/config.yaml (8.4.3.dev2544).
+# Same image; different slug so it can run beside ha_mcp_dev; no host network so it cannot fight for port 9583.
+# The webhook proxy for this instance targets it on the Supervisor network: http://<repo-id>-ha-mcp-agent:9583/<secret_path>
+name: "HA MCP Server (Agent)"
+description: "Second ha-mcp instance for the Oakendale planner agent - writes fenced by Tool Security Policies"
+version: "8.4.3.dev2544"
+slug: "ha_mcp_agent"
+url: "https://github.com/TomJonesGreggs/oakendale-addons"
+stage: experimental
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: application
+boot: manual
+ingress: true
+ingress_port: 9583
+ingress_stream: true
+hassio_api: true
+hassio_role: manager
+homeassistant_api: true
+host_network: false
+image: "ghcr.io/homeassistant-ai/ha-mcp-addon-dev-{arch}"
+options:
+  backup_hint: "normal"
+  enable_tool_search: false
+  enable_tool_security_policies: true
+  enable_security_policy_tool: false
+  read_only_mode: false
+  redact_secrets: false
+  enable_beta_features: true
+  enable_yaml_config_editing: false
+  enable_yaml_packages_automation: false
+  enable_yaml_packages_script: false
+  enable_yaml_packages_scene: false
+  enable_yaml_edit_confirm: true
+  enable_filesystem_tools: false
+  enable_dashboard_screenshot: false
+  enable_code_mode: false
+  enable_lite_docstrings: false
+  enable_mandatory_bps: true
+  enable_strict_mandatory_bps: true
+  enable_auto_backup: false
+  auto_backup_throttle_minutes: 0
+  auto_backup_retain_per_entity: 100
+  enable_snapshot_delete: false
+  snapshot_delete_min_age_days: 7
+  tool_search_max_results: 5
+  disabled_tools: ""
+  pinned_tools: ""
+  verify_ssl: true
+schema:
+  backup_hint: list(strong|normal|weak|auto)
+  secret_path: str?
+  enable_tool_search: bool?
+  enable_tool_security_policies: bool?
+  enable_security_policy_tool: bool?
+  read_only_mode: bool?
+  redact_secrets: bool?
+  enable_beta_features: bool?
+  enable_yaml_config_editing: bool?
+  enable_yaml_packages_automation: bool?
+  enable_yaml_packages_script: bool?
+  enable_yaml_packages_scene: bool?
+  enable_yaml_edit_confirm: bool?
+  enable_code_mode: bool?
+  enable_lite_docstrings: bool?
+  enable_mandatory_bps: bool?
+  enable_strict_mandatory_bps: bool?
+  enable_filesystem_tools: bool?
+  enable_dashboard_screenshot: bool?
+  enable_auto_backup: bool?
+  auto_backup_throttle_minutes: int(0,1440)?
+  auto_backup_retain_per_entity: int(1,10000)?
+  enable_snapshot_delete: bool?
+  snapshot_delete_min_age_days: int(0,365)?
+  tool_search_max_results: int(2,10)?
+  disabled_tools: str?
+  pinned_tools: str?
+  verify_ssl: bool?
